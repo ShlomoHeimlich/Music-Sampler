@@ -8,7 +8,13 @@ export default function MusicTable() {
       Array.from({ length: size }, () => false),
     ),
   );
-  const { currentCol, isPlaying, setIsPlaying } = useSequencer(size, grid);
+  const [instrument, setInstrument] = useState("guitar");
+  const { currentCol, isPlaying, setIsPlaying } = useSequencer(
+    size,
+    grid,
+    instrument,
+  );
+
 
   const toggleCell = (row: number, col: number) => {
     const newGrid = grid.map((r, i) =>
@@ -32,6 +38,17 @@ export default function MusicTable() {
       ))}
       <button onClick={() => setIsPlaying((p) => !p)}>
         {isPlaying ? "Pause" : "Play"}
+      </button>
+      <button
+        onClick={() =>
+          setInstrument((prev) => {
+            const instruments = ["guitar", "drums"];
+            const index = instruments.indexOf(prev);
+            return instruments[(index + 1) % instruments.length];
+          })
+        }
+      >
+        {instrument}
       </button>
     </div>
   );
