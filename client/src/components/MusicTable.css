@@ -33,3 +33,11 @@ button {
   color: white;
   cursor: pointer;
 }
+
+.guitar {
+  background: yellow;
+}
+
+.drums {
+  background: blue;
+}
