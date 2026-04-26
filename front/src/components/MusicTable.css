@@ -1,0 +1,19 @@
+.grid {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.row {
+  display: flex;
+  gap: 2px;
+}
+.cell {
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgb(46, 12, 240);
+  cursor: pointer;
+}
+
+.cell.active {
+  background-color: rgb(0, 85, 128);
+}
