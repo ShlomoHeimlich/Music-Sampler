@@ -3,17 +3,29 @@ import "./MusicTable.css";
 import useSequencer from "./useSequencer";
 export default function MusicTable() {
   const size = 10;
-  const [grid, setGrid] = useState(
+  type Instrument = "guitar" | "drums" | null;
+  const [grid, setGrid] = useState<Instrument[][]>(
     Array.from({ length: size }, () =>
-      Array.from({ length: size }, () => false),
+      Array.from({ length: size }, () => null),
     ),
   );
-  const { currentCol, isPlaying, setIsPlaying } = useSequencer(size, grid);
+  const [instrument, setInstrument] = useState<Instrument>("guitar");
+  const { currentCol, isPlaying, setIsPlaying } = useSequencer(
+    size,
+    grid,
+    instrument,
+  );
 
   const toggleCell = (row: number, col: number) => {
     const newGrid = grid.map((r, i) =>
-      r.map((cell, j) => (i === row && j === col ? !cell : cell)),
+      r.map((cell, j) => {
+        if (i === row && j === col) {
+          return instrument;
+        }
+        return cell;
+      }),
     );
+
     setGrid(newGrid);
   };
 
@@ -25,13 +37,31 @@ export default function MusicTable() {
             <div
               key={j}
               onClick={() => toggleCell(i, j)}
-              className={`cell ${cell ? "active" : ""} ${currentCol === j ? "playing" : ""}`}
+              className={`cell 
+  ${cell === "guitar" ? "guitar" : ""}
+  ${cell === "drums" ? "drums" : ""}
+  ${currentCol === j ? "playing" : ""}
+`}
             />
           ))}
         </div>
       ))}
       <button onClick={() => setIsPlaying((p) => !p)}>
         {isPlaying ? "Pause" : "Play"}
+      </button>
+      <button
+        onClick={() =>
+          setInstrument((prev) => {
+            const instruments: Instrument[] = ["guitar", "drums"];
+            if (prev === null) {
+              return instruments[0];
+            }
+            const index = instruments.indexOf(prev);
+            return instruments[(index + 1) % instruments.length];
+          })
+        }
+      >
+        {instrument}
       </button>
     </div>
   );

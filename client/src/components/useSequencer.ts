@@ -1,19 +1,22 @@
 import { useEffect, useState } from "react";
-
-export default function useSequencer(size: number, grid: boolean[][]) {
+ type Instrument = "guitar" | "drums" | null;
+export default function useSequencer(
+  size: number,
+  grid: Instrument[][],
+  instrument: Instrument,
+) {
   const [currentCol, setCurrentCol] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
-
-  const playSound = () => {
-    const audio = new Audio("/sounds/kick.wav");
+  const playSound = (instrument: "guitar" | "drums") => {
+    const audio = new Audio(`/sounds/${instrument}.wav`);
     audio.currentTime = 0;
     audio.play();
   };
-
   const playColumn = (col: number) => {
     grid.forEach((row) => {
-      if (row[col]) {
-        playSound();
+      const cell = row[col];
+      if (cell) {
+        playSound(cell);
       }
     });
   };
@@ -27,8 +30,9 @@ export default function useSequencer(size: number, grid: boolean[][]) {
         return next;
       });
     }, 600);
+
     return () => clearInterval(interval);
-  }, [isPlaying, size]);
+  }, [isPlaying, size, grid, instrument]);
 
   return {
     currentCol,
