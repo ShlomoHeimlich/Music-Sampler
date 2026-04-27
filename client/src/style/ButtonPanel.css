@@ -12,3 +12,6 @@
   color: rgb(175, 228, 243);
   cursor: pointer;
 }
+button:hover {
+  background: #2f4fb8;
+}
