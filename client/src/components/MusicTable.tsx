@@ -5,7 +5,7 @@ import ButtonPanel from "./ButtonPanel";
 export default function MusicTable() {
   type Instrument = "guitar" | "drums" | null;
   const [cols, setCols] = useState(10);
-  const [rows] = useState(8);
+  const [rows] = useState(7);
   const [instrument, setInstrument] = useState<Instrument>("guitar");
   const [grid, setGrid] = useState<Instrument[][]>(
     Array.from({ length: rows }, () =>
