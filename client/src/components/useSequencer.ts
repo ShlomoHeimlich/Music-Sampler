@@ -18,10 +18,9 @@ export default function useSequencer(cols: number, grid: Instrument[][]) {
 
   const playSound = (instrument: "guitar" | "drums") => {
     const audio = new Audio(`http://localhost:3001/sounds/${instrument}.wav`);
-    // audio.currentTime = 0;
     audio.play();
   };
-//0
+
   const playColumn = (col: number) => {
     grid.forEach((row) => {
       const cell = row[col];

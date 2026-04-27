@@ -13,7 +13,7 @@ export default function MusicTable() {
     ),
   );
   const { currentCol, isPlaying, setIsPlaying } = useSequencer(cols, grid);
-
+  
   const changeInstrument = () => {
     setInstrument((prev) => {
       const instruments: Instrument[] = ["guitar", "drums"];
