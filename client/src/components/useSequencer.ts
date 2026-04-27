@@ -1,17 +1,27 @@
 import { useEffect, useState } from "react";
- type Instrument = "guitar" | "drums" | null;
-export default function useSequencer(
-  size: number,
-  grid: Instrument[][],
-  instrument: Instrument,
-) {
+type Instrument = "guitar" | "drums" | null;
+export default function useSequencer(cols: number, grid: Instrument[][]) {
   const [currentCol, setCurrentCol] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
+
+  useEffect(() => {
+    if (!isPlaying) return;
+    const interval = setInterval(() => {
+      setCurrentCol((prev) => {
+        playColumn(prev);
+        const next = (prev + 1) % cols;
+        return next;
+      });
+    }, 600);
+    return () => clearInterval(interval);
+  }, [isPlaying, cols, grid]);
+
   const playSound = (instrument: "guitar" | "drums") => {
-    const audio = new Audio(`/sounds/${instrument}.wav`);
-    audio.currentTime = 0;
+    const audio = new Audio(`http://localhost:3001/sounds/${instrument}.wav`);
+    // audio.currentTime = 0;
     audio.play();
   };
+//0
   const playColumn = (col: number) => {
     grid.forEach((row) => {
       const cell = row[col];
@@ -21,21 +31,7 @@ export default function useSequencer(
     });
   };
 
-  useEffect(() => {
-    if (!isPlaying) return;
-    const interval = setInterval(() => {
-      setCurrentCol((prev) => {
-        const next = (prev + 1) % size;
-        playColumn(next);
-        return next;
-      });
-    }, 600);
-
-    return () => clearInterval(interval);
-  }, [isPlaying, size, grid, instrument]);
-
-  return {
-    currentCol,
+  return {currentCol,
     isPlaying,
     setIsPlaying,
   };
