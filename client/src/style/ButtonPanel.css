@@ -1,0 +1,14 @@
+.buttons{
+  display: flex;
+  gap: 10px;
+}
+
+button {
+  margin-top: 20px;
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: none;
+  background: #3862d5;
+  color: white;
+  cursor: pointer;
+}
