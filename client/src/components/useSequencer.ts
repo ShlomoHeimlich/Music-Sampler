@@ -1,30 +1,36 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 type Instrument = "guitar" | "drums" | null;
+
+const sounds: Record<"guitar" | "drums", HTMLAudioElement[]> = {
+  guitar: Array.from(
+    { length: 7 },
+    (_, i) => new Audio(`http://localhost:3001/sounds/guitar/${i + 1}.wav`),
+  ),
+  drums: Array.from(
+    { length: 7 },
+    (_, i) => new Audio(`http://localhost:3001/sounds/drums/${i + 1}.wav`),
+  ),
+};
+
 export default function useSequencer(cols: number, grid: Instrument[][]) {
   const [currentCol, setCurrentCol] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
-
+  const gridRef = useRef(grid);
+  
   useEffect(() => {
-    if (!isPlaying) return;
-    const interval = setInterval(() => {
-      setCurrentCol((prev) => {
-        playColumn(prev);
-        const next = (prev + 1) % cols;
-        return next;
-      });
-    }, 600);
-    return () => clearInterval(interval);
-  }, [isPlaying, cols, grid]);
+    gridRef.current = grid;
+  }, [grid]);
 
-  const playSound = (instrument: "guitar" | "drums", note: number) => {
-    const audio = new Audio(
-      `http://localhost:3001/sounds/${instrument}/${note}.wav`,
-    );
+  const playSound = (instrument: "guitar" | "drums", noteIndex: number) => {
+    const audio = sounds[instrument][noteIndex - 1];
+    if (!audio) return;
+    audio.currentTime = 0;
     audio.play();
   };
 
   const playColumn = (col: number) => {
-    let note: number = 0;
+    let note = 0;
+    const grid = gridRef.current;
     grid.forEach((row) => {
       const cell = row[col];
       note++;
@@ -33,6 +39,18 @@ export default function useSequencer(cols: number, grid: Instrument[][]) {
       }
     });
   };
+
+  useEffect(() => {
+    if (!isPlaying) return;
+    const interval = setInterval(() => {
+      setCurrentCol((prev) => {
+        const next = (prev + 1) % cols;
+        playColumn(next);
+        return next;
+      });
+    }, 600);
+    return () => clearInterval(interval);
+  }, [isPlaying, cols]);
 
   return { currentCol, isPlaying, setIsPlaying };
 }
