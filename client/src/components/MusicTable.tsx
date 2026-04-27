@@ -12,7 +12,11 @@ export default function MusicTable() {
       Array.from({ length: cols }, () => null),
     ),
   );
-  const { currentCol, isPlaying, setIsPlaying } = useSequencer(cols, grid);
+  const { currentCol, isPlaying, setIsPlaying, restart } = useSequencer(
+    cols,
+    grid,
+    setGrid,
+  );
 
   const changeInstrument = () => {
     setInstrument((prev) => {
@@ -71,6 +75,7 @@ export default function MusicTable() {
         onInstrumentChange={changeInstrument}
         instrument={instrument}
         isPlaying={isPlaying}
+        onRestart={restart}
       />
     </div>
   );

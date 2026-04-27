@@ -12,11 +12,15 @@ const sounds: Record<"guitar" | "drums", HTMLAudioElement[]> = {
   ),
 };
 
-export default function useSequencer(cols: number, grid: Instrument[][]) {
+export default function useSequencer(
+  cols: number,
+  grid: Instrument[][],
+  setGrid: React.Dispatch<React.SetStateAction<Instrument[][]>>,
+) {
   const [currentCol, setCurrentCol] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const gridRef = useRef(grid);
-  
+
   useEffect(() => {
     gridRef.current = grid;
   }, [grid]);
@@ -52,5 +56,15 @@ export default function useSequencer(cols: number, grid: Instrument[][]) {
     return () => clearInterval(interval);
   }, [isPlaying, cols]);
 
-  return { currentCol, isPlaying, setIsPlaying };
+  const restart = () => {
+    setIsPlaying(false);
+    setCurrentCol(0);
+    setGrid(
+      Array.from({ length: grid.length }, () =>
+        Array.from({ length: cols }, () => null),
+      ),
+    );
+  };
+
+  return { currentCol, isPlaying, setIsPlaying, restart };
 }
