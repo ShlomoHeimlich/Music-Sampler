@@ -3,12 +3,12 @@
   gap: 10px;
 }
 
-button {
-  margin-top: 20px;
+ button {
+  margin-top: 50px;
   padding: 10px 16px;
   border-radius: 8px;
-  border: none;
+  border: 2px solid black;
   background: #3862d5;
-  color: white;
+  color: rgb(175, 228, 243);
   cursor: pointer;
 }

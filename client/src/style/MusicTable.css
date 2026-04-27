@@ -1,8 +1,15 @@
+.title{
+  text-align: center;
+  margin-top: 40px;
+  font-size: 24px;
+  color: red;
+}
 .grid {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-top: 40px;
 }
 
 .row {

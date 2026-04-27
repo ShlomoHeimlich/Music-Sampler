@@ -52,31 +52,34 @@ export default function MusicTable() {
   };
 
   return (
-    <div className="grid">
-      {grid.map((row, i) => (
-        <div key={i} className="row">
-          {row.map((cell, j) => (
-            <div
-              key={j}
-              onClick={() => toggleCell(i, j)}
-              className={`cell 
+    <div className="title">
+      Songwriter
+      <div className="grid">
+        {grid.map((row, i) => (
+          <div key={i} className="row">
+            {row.map((cell, j) => (
+              <div
+                key={j}
+                onClick={() => toggleCell(i, j)}
+                className={`cell 
               ${cell === "guitar" ? "guitar" : ""}
               ${cell === "drums" ? "drums" : ""}
               ${currentCol === j ? "playing" : ""}
               `}
-            />
-          ))}
-        </div>
-      ))}
-      <ButtonPanel
-        onPlayToggle={() => setIsPlaying((p) => !p)}
-        onAddColumn={addColumn}
-        onRemoveColumn={removeColumn}
-        onInstrumentChange={changeInstrument}
-        instrument={instrument}
-        isPlaying={isPlaying}
-        onRestart={restart}
-      />
+              />
+            ))}
+          </div>
+        ))}
+        <ButtonPanel
+          onPlayToggle={() => setIsPlaying((p) => !p)}
+          onAddColumn={addColumn}
+          onRemoveColumn={removeColumn}
+          onInstrumentChange={changeInstrument}
+          instrument={instrument}
+          isPlaying={isPlaying}
+          onRestart={restart}
+        />
+      </div>
     </div>
   );
 }
