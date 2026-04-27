@@ -2,14 +2,13 @@ import { useState } from "react";
 import "../style/MusicTable.css";
 import useSequencer from "./useSequencer";
 import ButtonPanel from "./ButtonPanel";
+import type { Instrument } from "../types/Instrument.ts";
 export default function MusicTable() {
-  type Instrument = "guitar" | "drums" | null;
   const [cols, setCols] = useState(10);
-  const [rows] = useState(7);
   const [instrument, setInstrument] = useState<Instrument>("guitar");
   const [grid, setGrid] = useState<Instrument[][]>(
-    Array.from({ length: rows }, () =>
-      Array.from({ length: cols }, () => null),
+    Array.from({ length: 7 }, () =>
+      Array.from({ length: 10 }, () => null),
     ),
   );
   const { currentCol, isPlaying, setIsPlaying, restart, setSpeed } = useSequencer(cols, grid, setGrid);
