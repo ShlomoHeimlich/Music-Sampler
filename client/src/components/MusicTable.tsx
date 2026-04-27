@@ -1,6 +1,7 @@
-import { useState} from "react";
+import { useState } from "react";
 import "../style/MusicTable.css";
 import useSequencer from "./useSequencer";
+import ButtonPanel from "./ButtonPanel";
 export default function MusicTable() {
   type Instrument = "guitar" | "drums" | null;
   const [cols, setCols] = useState(10);
@@ -13,13 +14,21 @@ export default function MusicTable() {
   );
   const { currentCol, isPlaying, setIsPlaying } = useSequencer(cols, grid);
 
+  const changeInstrument = () => {
+    setInstrument((prev) => {
+      const instruments: Instrument[] = ["guitar", "drums"];
+      const index = instruments.indexOf(prev);
+      return instruments[(index + 1) % instruments.length];
+    });
+  };
+
   const addColumn = () => {
     setCols((prev) => prev + 1);
     setGrid((prev) => prev.map((row) => [...row, null]));
   };
 
   const removeColumn = () => {
-    setCols((prev) =>  prev - 1);
+    setCols((prev) => prev - 1);
     setGrid((prev) => prev.map((row) => row.slice(0, -1)));
   };
 
@@ -52,24 +61,14 @@ export default function MusicTable() {
           ))}
         </div>
       ))}
-      <div className="buttons">
-        <button onClick={addColumn}>add column</button>
-        <button onClick={removeColumn}>remove column</button>
-        <button onClick={() => setIsPlaying((p) => !p)}>
-          {isPlaying ? "Pause" : "Play"}
-        </button>
-        <button
-          onClick={() =>
-            setInstrument((prev) => {
-              const instruments: Instrument[] = ["guitar", "drums"];
-              const index = instruments.indexOf(prev);
-              return instruments[(index + 1) % instruments.length];
-            })
-          }
-        >
-          {instrument}
-        </button>
-      </div>
+      <ButtonPanel
+        onPlayToggle={() => setIsPlaying((p) => !p)}
+        onAddColumn={addColumn}
+        onRemoveColumn={removeColumn}
+        onInstrumentChange={changeInstrument}
+        instrument={instrument}
+        isPlaying={isPlaying}
+      />
     </div>
   );
 }
