@@ -19,6 +19,7 @@ export default function useSequencer(
 ) {
   const [currentCol, setCurrentCol] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [speed, setSpeed] = useState(600);
   const gridRef = useRef(grid);
 
   useEffect(() => {
@@ -52,9 +53,9 @@ export default function useSequencer(
         playColumn(next);
         return next;
       });
-    }, 600);
+    }, speed);
     return () => clearInterval(interval);
-  }, [isPlaying, cols]);
+  }, [isPlaying, cols,speed]);
 
   const restart = () => {
     setIsPlaying(false);
@@ -66,5 +67,5 @@ export default function useSequencer(
     );
   };
 
-  return { currentCol, isPlaying, setIsPlaying, restart };
+  return { currentCol, isPlaying, setIsPlaying, restart,setSpeed  };
 }
