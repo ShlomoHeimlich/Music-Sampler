@@ -5,7 +5,7 @@ import ButtonPanel from "./ButtonPanel";
 export default function MusicTable() {
   type Instrument = "guitar" | "drums" | null;
   const [cols, setCols] = useState(10);
-  const [rows] = useState(10);
+  const [rows] = useState(8);
   const [instrument, setInstrument] = useState<Instrument>("guitar");
   const [grid, setGrid] = useState<Instrument[][]>(
     Array.from({ length: rows }, () =>
@@ -13,7 +13,7 @@ export default function MusicTable() {
     ),
   );
   const { currentCol, isPlaying, setIsPlaying } = useSequencer(cols, grid);
-  
+
   const changeInstrument = () => {
     setInstrument((prev) => {
       const instruments: Instrument[] = ["guitar", "drums"];
@@ -36,6 +36,9 @@ export default function MusicTable() {
     const newGrid = grid.map((r, i) =>
       r.map((cell, j) => {
         if (i === row && j === col) {
+          if (cell === instrument) {
+            return null;
+          }
           return instrument;
         }
         return cell;

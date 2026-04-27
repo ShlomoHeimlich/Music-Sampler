@@ -16,22 +16,23 @@ export default function useSequencer(cols: number, grid: Instrument[][]) {
     return () => clearInterval(interval);
   }, [isPlaying, cols, grid]);
 
-  const playSound = (instrument: "guitar" | "drums") => {
-    const audio = new Audio(`http://localhost:3001/sounds/${instrument}.wav`);
+  const playSound = (instrument: "guitar" | "drums", note: number) => {
+    const audio = new Audio(
+      `http://localhost:3001/sounds/${instrument}/${note}.wav`,
+    );
     audio.play();
   };
 
   const playColumn = (col: number) => {
+    let note: number = 0;
     grid.forEach((row) => {
       const cell = row[col];
+      note++;
       if (cell) {
-        playSound(cell);
+        playSound(cell, note);
       }
     });
   };
 
-  return {currentCol,
-    isPlaying,
-    setIsPlaying,
-  };
+  return { currentCol, isPlaying, setIsPlaying };
 }
