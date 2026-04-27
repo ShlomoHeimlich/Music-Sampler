@@ -26,10 +26,7 @@ export default function ButtonPanel({
       <button onClick={onRemoveColumn}>Delete column</button>
       <button onClick={onInstrumentChange}>{instrument ?? "none"}</button>
       <button onClick={onRestart}>Restart</button>
-      <button onClick={() => setSpeed((s) => Math.max(100, s - 100))}>
-        Faster
-      </button>
-
+      <button onClick={() => setSpeed((s) => s - 100)}>Faster</button>
       <button onClick={() => setSpeed((s) => s + 100)}>Slower</button>
     </div>
   );
