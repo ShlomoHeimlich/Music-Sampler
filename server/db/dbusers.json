@@ -1,18 +1,1 @@
-[
-  {
-    "name": "shl",
-    "passwordHash": "$2b$10$kCmg1HN5LOdcakICBvKxMOEulFqwRNBr96D/ReBNHO1Kio4RBjzj6"
-  },
-  {
-    "name": "shlל",
-    "passwordHash": "$2b$10$RzMOdJjSMW82KRhUwy9FP.4AFaluGcodvaFwBwJX6483f7AtVwLIK"
-  },
-  {
-    "name": "test",
-    "passwordHash": "$2b$10$aPC7pFCVm0zbyLNCCFr8ee8pEReA.4BF74IZ8pfVkOdrwcR7v8U1a"
-  },
-  {
-    "name": "tet",
-    "passwordHash": "$2b$10$iLxRuyij/LmT3um1cLzdW.5PGYUjVKVsqBTjaaH4SbhiOjFgxIE2m"
-  }
-]
+[]
