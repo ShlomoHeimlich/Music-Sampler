@@ -1,9 +1,10 @@
-.title{
+.title {
   text-align: center;
   margin-top: 40px;
   font-size: 24px;
   color: red;
 }
+
 .grid {
   display: flex;
   flex-direction: column;
@@ -37,5 +38,5 @@
 }
 
 .drums {
-  background: blue;
+  background: rgb(244, 182, 112);
 }

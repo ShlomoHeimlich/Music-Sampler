@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import type { Instrument } from "../types/Instrument.ts";
 const sounds: Record<"guitar" | "drums", HTMLAudioElement[]> = {
   guitar: Array.from(
@@ -11,7 +11,7 @@ const sounds: Record<"guitar" | "drums", HTMLAudioElement[]> = {
   ),
 };
 
-export default function useSequencer(
+export default function Sequencer(
   cols: number,
   grid: Instrument[][],
   setGrid: React.Dispatch<React.SetStateAction<Instrument[][]>>,
@@ -19,11 +19,6 @@ export default function useSequencer(
   const [currentCol, setCurrentCol] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [speed, setSpeed] = useState(600);
-  const gridRef = useRef(grid);
-
-  useEffect(() => {
-    gridRef.current = grid;
-  }, [grid]);
 
   const playSound = (instrument: "guitar" | "drums", noteIndex: number) => {
     const audio = sounds[instrument][noteIndex - 1];
@@ -34,7 +29,6 @@ export default function useSequencer(
 
   const playColumn = (col: number) => {
     let note = 0;
-    const grid = gridRef.current;
     grid.forEach((row) => {
       const cell = row[col];
       note++;
@@ -42,6 +36,16 @@ export default function useSequencer(
         playSound(cell, note);
       }
     });
+  };
+
+  const restart = () => {
+    setIsPlaying(false);
+    setCurrentCol(0);
+    setGrid(
+      Array.from({ length: grid.length }, () =>
+        Array.from({ length: cols }, () => null),
+      ),
+    );
   };
 
   useEffect(() => {
@@ -54,17 +58,7 @@ export default function useSequencer(
       });
     }, speed);
     return () => clearInterval(interval);
-  }, [isPlaying, cols,speed]);
+  }, [isPlaying, cols, speed, grid]);
 
-  const restart = () => {
-    setIsPlaying(false);
-    setCurrentCol(0);
-    setGrid(
-      Array.from({ length: grid.length }, () =>
-        Array.from({ length: cols }, () => null),
-      ),
-    );
-  };
-
-  return { currentCol, isPlaying, setIsPlaying, restart,setSpeed  };
+  return { currentCol, isPlaying, setIsPlaying, restart, setSpeed };
 }
