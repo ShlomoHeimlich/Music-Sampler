@@ -21,7 +21,7 @@ export default function Sequencer(
   const [speed, setSpeed] = useState(600);
 
   const playSound = (instrument: "guitar" | "drums", noteIndex: number) => {
-    const audio = sounds[instrument][noteIndex - 1];
+    const audio = sounds[instrument][noteIndex];
     if (!audio) return;
     audio.currentTime = 0;
     audio.play();
@@ -31,10 +31,10 @@ export default function Sequencer(
     let note = 0;
     grid.forEach((row) => {
       const cell = row[col];
-      note++;
       if (cell) {
         playSound(cell, note);
       }
+      note++;
     });
   };
 
@@ -47,19 +47,19 @@ export default function Sequencer(
       ),
     );
   };
+
   useEffect(() => {
     if (!isPlaying) return;
     playColumn(currentCol);
     const interval = setInterval(() => {
       setCurrentCol((prev) => {
         const next = (prev + 1) % cols;
-        playColumn(next); 
+        playColumn(next);
         return next;
       });
     }, speed);
-
     return () => clearInterval(interval);
-  }, [isPlaying, cols, speed, grid]);
+  }, [isPlaying, speed, grid]);
 
   return { currentCol, isPlaying, setIsPlaying, restart, setSpeed };
 }

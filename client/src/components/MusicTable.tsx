@@ -3,6 +3,7 @@ import "../style/MusicTable.css";
 import Sequencer from "./Sequencer.ts";
 import ButtonPanel from "./ButtonPanel";
 import type { Instrument } from "../types/Instrument.ts";
+
 export default function MusicTable() {
   const [cols, setCols] = useState(10);
   const [instrument, setInstrument] = useState<Instrument>("guitar");
@@ -11,7 +12,7 @@ export default function MusicTable() {
       Array.from({ length: 10 }, () => null),
     ),
   );
-
+  
   const { currentCol, isPlaying, setIsPlaying, restart, setSpeed } = Sequencer(cols, grid, setGrid);
 
   const changeInstrument = () => {
