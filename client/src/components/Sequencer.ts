@@ -47,16 +47,17 @@ export default function Sequencer(
       ),
     );
   };
-
   useEffect(() => {
     if (!isPlaying) return;
+    playColumn(currentCol);
     const interval = setInterval(() => {
       setCurrentCol((prev) => {
         const next = (prev + 1) % cols;
-        playColumn(next);
+        playColumn(next); 
         return next;
       });
     }, speed);
+
     return () => clearInterval(interval);
   }, [isPlaying, cols, speed, grid]);
 
