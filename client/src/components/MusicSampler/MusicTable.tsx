@@ -1,7 +1,7 @@
 import { useState } from "react";
-import "../../style/MusicTable.css";
-import Sequencer from "../../Sequencer.ts";
-import ButtonPanel from "./ButtonPanel";
+import "../../style/musicTable.css";
+import Sequencer from "../../sequencer.ts";
+import ButtonPanel from "./ButtonPanel.tsx";
 import type { Instrument } from "../../types/Instrument.ts";
 
 export default function MusicTable() {

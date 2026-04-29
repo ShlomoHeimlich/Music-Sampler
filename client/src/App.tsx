@@ -1,6 +1,6 @@
-import MusicTable from "./components/MusicSampler/MusicTable.tsx";
+import MusicTable from "./components/musicSampler/MusicTable.tsx";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import AuthPage from "./components/Auth/AuthPage.tsx";
+import AuthPage from "./components/auth/AuthPage.tsx";
 
 
 export default function App() {

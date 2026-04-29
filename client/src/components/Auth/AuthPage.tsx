@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "../../style/AuthPage.css";
+import "../../style/authPage.css";
 
 export default function AuthPage() {
   const navigate = useNavigate();
