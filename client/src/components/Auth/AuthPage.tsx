@@ -21,7 +21,7 @@ export default function AuthPage() {
       setMessage("Login successful");
       setTimeout(() => navigate("/home"), 600);
     } else {
-      setMessage("Login failed. Try registering.");
+      setMessage(data.error);
       setMode("Register");
     }
   };
