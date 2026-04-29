@@ -1,8 +1,8 @@
 import { useState } from "react";
-import "../style/MusicTable.css";
-import Sequencer from "./Sequencer.ts";
+import "../../style/MusicTable.css";
+import Sequencer from "../../Sequencer.ts";
 import ButtonPanel from "./ButtonPanel";
-import type { Instrument } from "../types/Instrument.ts";
+import type { Instrument } from "../../types/Instrument.ts";
 
 export default function MusicTable() {
   const [cols, setCols] = useState(10);

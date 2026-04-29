@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import type { Instrument } from "../types/Instrument.ts";
+import type { Instrument } from "./types/Instrument";
 const sounds: Record<"guitar" | "drums", HTMLAudioElement[]> = {
   guitar: Array.from(
     { length: 7 },
