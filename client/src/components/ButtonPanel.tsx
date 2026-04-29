@@ -24,7 +24,7 @@ export default function ButtonPanel({
       <button onClick={onPlayToggle}>{isPlaying ? "Pause" : "Play"}</button>
       <button onClick={onAddColumn}>Add column</button>
       <button onClick={onRemoveColumn}>Delete column</button>
-      <button onClick={onInstrumentChange}>{instrument ?? "none"}</button>
+      <button onClick={onInstrumentChange}>{instrument}</button>
       <button onClick={onRestart}>Restart</button>
       <button onClick={() => setSpeed((s) => s - 100)}>Faster</button>
       <button onClick={() => setSpeed((s) => s + 100)}>Slower</button>

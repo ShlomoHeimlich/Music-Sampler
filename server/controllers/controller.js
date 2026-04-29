@@ -1,6 +1,7 @@
 import { getUsersDb, saveUsersDb } from "../services/services.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import "dotenv/config";
 
 export async function registerController(req, res) {
   const { name, password } = req.body;
@@ -45,9 +46,10 @@ export async function loginController(req, res) {
   if (!valid) {
     return res.status(401).send({ error: "Invalid credentials" });
   }
+  const SECRET_KEY = process.env.SECRET_KEY || "1234"
   const token = jwt.sign(
     { name: user.name },
-    "SECRET_KEY",
+    SECRET_KEY,
     { expiresIn: "1h" }
   );
   return res.status(200).send({
