@@ -6,7 +6,7 @@ export default function AuthPage() {
   const navigate = useNavigate();
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
-  const [mode, setMode] = useState<"Login" | "Register">("Login");
+  const [mode, setMode] = useState<"login" | "register">("login");
   const [message, setMessage] = useState("");
 
   const handleLogin = async () => {
@@ -22,7 +22,7 @@ export default function AuthPage() {
       setTimeout(() => navigate("/home"), 600);
     } else {
       setMessage(data.error);
-      setMode("Register");
+      setMode("register");
     }
   };
 
@@ -38,7 +38,7 @@ export default function AuthPage() {
       setMessage("Registration successful You can now login");
       setName("");
       setPassword("");
-      setMode("Login");
+      setMode("login");
     } else {
       setMessage(data.error);
     }
@@ -49,30 +49,30 @@ export default function AuthPage() {
       <div className="auth-box">
         <div className="auth-tabs">
           <button
-            className={mode === "Login" ? "active" : ""}
-            onClick={() => setMode("Login")}
+            className={mode === "login" ? "active" : ""}
+            onClick={() => setMode("login")}
           >
             Login
           </button>
           <button
-            className={mode === "Register" ? "active" : ""}
-            onClick={() => setMode("Register")}
+            className={mode === "register" ? "active" : ""}
+            onClick={() => setMode("register")}
           >
             Register
           </button>
         </div>
         <input
-          placeholder="Name"
+          placeholder="name"
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
         <input
           type="password"
-          placeholder="Password"
+          placeholder="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button onClick={mode === "Login" ? handleLogin : handleRegister}>
+        <button onClick={mode === "login" ? handleLogin : handleRegister}>
           {mode}
         </button>
         {message && <div className="message">{message}</div>}
