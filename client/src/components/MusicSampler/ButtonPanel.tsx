@@ -1,4 +1,4 @@
-import "../style/ButtonPanel.css";
+import "../../style/ButtonPanel.css";
 type ButtonPanelProps = {
   onPlayToggle: () => void;
   onAddColumn: () => void;
